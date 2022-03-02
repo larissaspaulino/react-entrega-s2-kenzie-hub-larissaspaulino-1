@@ -30,10 +30,10 @@ const Dashboard = ({ auth, setAuth }) => {
     setAuth(false)
   }
   
-    // if (!auth) {
-    //   console.log(auth)
-    //   return <Redirect to='/'/>
-    // } 
+    if (!auth) {
+      console.log(auth)
+      return <Redirect to='/cadastro'/>
+    } 
 
 
 
