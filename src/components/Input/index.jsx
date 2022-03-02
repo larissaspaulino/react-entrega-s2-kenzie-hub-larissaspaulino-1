@@ -7,7 +7,11 @@ const Input = ({ register, icon: Icon, error = '', name, label, ...rest }) => {
     <Container>
       <Label>{label}</Label>
       <InputContainer isErrored={!!error}>
-        <input {...register(name)} {...rest} autoComplete='off' />
+        {register ? (
+          <input {...register(name)} {...rest}  />
+        ) : (
+          <input {...rest} />
+        )}
         {Icon && <Icon size={20} />}
       </InputContainer>
       <Error>{!!error && <span>{error}</span>} </Error>

@@ -19,7 +19,7 @@ export const StyledModal = styled(ModalUnstyled)`
     margin-top: 10px;
   }
 
-  form > div  {
+  .form > div  {
     width: 100%;
   }
  

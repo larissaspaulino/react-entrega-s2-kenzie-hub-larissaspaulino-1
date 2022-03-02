@@ -1,10 +1,10 @@
 import { StyledModal, Backdrop, styleBox } from './styles'
 import { Box } from '@mui/system'
-import { AiFillPushpin, AiOutlineClose } from 'react-icons/ai'
+import { AiOutlineClose } from 'react-icons/ai'
 import Input from '../../components/Input'
 import Button from '../../components/Button'
 import Select from '../../components/Select'
-import { grey1, primary } from '../../styles/global'
+import { primary } from '../../styles/global'
 import { useForm } from 'react-hook-form'
 import api from '../../services/api'
 import { toast } from 'react-toastify'
@@ -12,7 +12,7 @@ import { useState } from 'react'
 
 const ModalAddTech = ({ user, setUser, handleClose, open }) => {
   const [token] = useState(localStorage.getItem('@hub:token'))
-  const [newTech, setNewTech] = useState({})
+  // const [newTech, setNewTech] = useState("")
 
   const {
     register,
@@ -21,14 +21,9 @@ const ModalAddTech = ({ user, setUser, handleClose, open }) => {
   } = useForm({})
 
   const onSubmit = (data) => {
-    // let tech = {status: data.course_module, title: data.title}
-    setNewTech(data)
-    console.log(newTech)
-  }
-
-  const handleChange = () => {
+    // setNewTech(data) ----- teria que usar useEffect[newTech] para fazer o post, mas mais fácil fazer direto com o data do form =)
     api
-      .post(`/users/techs`, newTech, {
+      .post(`/users/techs`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -41,9 +36,10 @@ const ModalAddTech = ({ user, setUser, handleClose, open }) => {
             setUser(res.data)
           })
           .catch((err) => console.log('get by id:', err))
+        handleClose()
         toast.success('Tech adicionada com sucesso')
       })
-      .catch((err) => toast.error('Tech já cadastrada'))
+      .catch((err) => toast.error('Ocorreu um erro, tente novamente'))
   }
 
   return (
@@ -78,7 +74,7 @@ const ModalAddTech = ({ user, setUser, handleClose, open }) => {
               <option>Avançado</option>
             </Select>
             <div className='botoes'>
-              <Button type='submit' bgColor={primary} onClick={handleChange}>
+              <Button type='submit' bgColor={primary} >
                 Cadastrar Tecnologia
               </Button>
             </div>

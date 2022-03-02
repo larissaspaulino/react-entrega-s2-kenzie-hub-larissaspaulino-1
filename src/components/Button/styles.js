@@ -41,6 +41,7 @@ export const Container = styled.button`
 
       :hover {
         background-color: var(--grey-2);
+        color: var(--grey-0);
       }
     `}
 
