@@ -9,16 +9,20 @@ import { useForm } from 'react-hook-form'
 import api from '../../services/api'
 import { toast } from 'react-toastify'
 import { useState } from 'react'
+import * as yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 const ModalAddTech = ({ user, setUser, handleClose, open }) => {
   const [token] = useState(localStorage.getItem('@hub:token'))
-  // const [newTech, setNewTech] = useState("")
 
+  const schema = yup.object().shape({
+    name: yup.string().required('Campo obrigatório!'),
+  })
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({})
+  } = useForm({ resolver: yupResolver(schema) })
 
   const onSubmit = (data) => {
     // setNewTech(data) ----- teria que usar useEffect[newTech] para fazer o post, mas mais fácil fazer direto com o data do form =)
@@ -74,7 +78,7 @@ const ModalAddTech = ({ user, setUser, handleClose, open }) => {
               <option>Avançado</option>
             </Select>
             <div className='botoes'>
-              <Button type='submit' bgColor={primary} >
+              <Button type='submit' bgColor={primary}>
                 Cadastrar Tecnologia
               </Button>
             </div>

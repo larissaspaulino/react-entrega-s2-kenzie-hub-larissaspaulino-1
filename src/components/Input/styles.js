@@ -17,13 +17,13 @@ export const Label = styled.div`
 `
 
 export const InputContainer = styled.div`
+  display: flex;
   background-color: var(--grey-2);
   border-radius: var(--border-radius);
   padding: 0.5rem;
   border: none;
   color: var(--grey-1);
   width: 100%;
-  display: flex;
   transition: 0.25s;
   border: var(--border-input);
 
@@ -65,7 +65,7 @@ export const InputContainer = styled.div`
   }
 
   svg {
-    margin-right: 16px;
+    margin-right: 5px;
   }
 
   @media (min-width: 700px) {

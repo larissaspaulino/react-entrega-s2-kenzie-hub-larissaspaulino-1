@@ -7,22 +7,21 @@ import * as yup from 'yup'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Redirect, useHistory } from 'react-router'
-import {FaEye} from 'react-icons/fa'
+import { FaEye } from 'react-icons/fa'
 import { toast } from 'react-toastify'
+import { useState } from 'react'
 
 const Login = ({ auth, setAuth }) => {
+  const [togglePassword, setTogglePassword] = useState(false)
+
   const history = useHistory()
 
   const schema = yup.object().shape({
-
     email: yup
       .string()
       .email('Email obrigatório')
       .required('Campo obrigatório!'),
-    password: yup
-      .string()
-      .required('Campo obrigatório!')
-      ,
+    password: yup.string().required('Campo obrigatório!'),
   })
 
   const {
@@ -32,18 +31,17 @@ const Login = ({ auth, setAuth }) => {
   } = useForm({ resolver: yupResolver(schema) })
 
   const onSubmit = (data) => {
-    
-    api.post('/sessions', data)
-    .then((res) => {
-      toast.success('Login feito com sucesso')
-      
+    api
+      .post('/sessions', data)
+      .then((res) => {
+        toast.success('Login feito com sucesso')
+
         // jogar os dados do usuário no localstorage caso precise acessar esses dados
         const { token, user } = res.data
-        
+
         localStorage.clear()
         localStorage.setItem('@hub:token', token) // localStorage.setItem('@hub:token', token)
         localStorage.setItem('@hub:user', JSON.stringify(user))
-        
 
         setAuth(true)
         return history.push('/dashboard') //com ou sem return
@@ -57,7 +55,6 @@ const Login = ({ auth, setAuth }) => {
     return <Redirect to='/dashboard' />
   }
 
-  
   return (
     <Container>
       <Section>
@@ -74,22 +71,23 @@ const Login = ({ auth, setAuth }) => {
             name='email'
             type='email'
             error={errors.email?.message}
-           
           />
           <Input
             register={register}
             placeholder='Digite aqui sua senha'
             label='Senha'
             name='password'
-            type='password'
             error={errors.password?.message}
-             // icon={FaEye}
+            icon={FaEye}
+            type={togglePassword ? 'text' : 'password'}
+            setTogglePassword={setTogglePassword}
+            togglePassword={togglePassword}
           />
-          <Button type='submit'>
-            Entrar
-          </Button>
+          <Button type='submit'>Entrar</Button>
           <p>Ainda não tem uma conta? </p>
-          <Button bgColor={grey1} onClick={() => history.push('/cadastro')}>Cadastre-se</Button>
+          <Button bgColor={grey1} onClick={() => history.push('/cadastro')}>
+            Cadastre-se
+          </Button>
         </Form>
       </Section>
     </Container>
