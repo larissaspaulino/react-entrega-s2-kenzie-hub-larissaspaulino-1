@@ -62,7 +62,7 @@ const ModalSeeTech = ({user, setUser, handleClose, open, techClicked }) => {
         <Box sx={styleBox}>
           <header>
             <h3>Detalhes da tecnologia</h3>
-            <AiOutlineClose onClick={handleClose} />
+            <AiOutlineClose size={18} onClick={handleClose} />
           </header>
           <div className='form'>
             <Input

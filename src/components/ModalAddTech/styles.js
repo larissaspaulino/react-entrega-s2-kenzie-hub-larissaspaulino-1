@@ -17,6 +17,12 @@ export const StyledModal = styled(ModalUnstyled)`
     justify-content: space-between;
     margin-bottom: 25px;
     margin-top: 10px;
+
+    svg {
+      :hover {
+        cursor: pointer;
+      }
+    }
   }
 
 

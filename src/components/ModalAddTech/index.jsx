@@ -16,7 +16,7 @@ const ModalAddTech = ({ user, setUser, handleClose, open }) => {
   const [token] = useState(localStorage.getItem('@hub:token'))
 
   const schema = yup.object().shape({
-    name: yup.string().required('Campo obrigatório!'),
+    title: yup.string().required('Campo obrigatório!'),
   })
   const {
     register,
@@ -56,7 +56,7 @@ const ModalAddTech = ({ user, setUser, handleClose, open }) => {
         <Box sx={styleBox}>
           <header>
             <h3>Cadastrar tecnologia</h3>
-            <AiOutlineClose onClick={handleClose} />
+            <AiOutlineClose size={18} onClick={handleClose} />
           </header>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Input
@@ -65,7 +65,7 @@ const ModalAddTech = ({ user, setUser, handleClose, open }) => {
               label='Nome do projeto'
               name='title'
               type='text'
-              error={errors.name?.message}
+              error={errors.title?.message}
             />
             <Select
               label='Selecionar módulo'
